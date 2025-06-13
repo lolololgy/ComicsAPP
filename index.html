@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marvel PWA</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <!-- <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css"> -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+  <header class="top-app-bar mdc-top-app-bar">
+    <button id="menu-button">☰</button>
+    <h1>Marvel Comics</h1>
+    <button id="share-button">🔗</button>
+  </header>
+
+  <aside id="drawer" class="drawer mdc-drawer">
+    <nav class="mdc-list">
+      <div class="title">
+        <h1>Marvel</h1>
+      </div>
+      <a href="index.html" class="mdc-list-item">Comics</a>
+      <a href="favorite.html" class="mdc-list-item">Favorieten</a>
+      <a href="top10.html" class="mdc-list-item">Top 10</a>
+  </aside>
+
+  <main class="mdc-layout-grid">
+    <section id="comics" class="mdc-layout-grid__inner">
+      <input type="text" id="search" class="mdc-text-field__input" placeholder="Zoek op titel...">
+      <div id="comics-container">
+        <ul id="comics-list" class="mdc-image-list mdc-image-list--masonry my-masonry-image-list">
+          <!-- Comics will be injected here -->
+        </ul>
+      </div>
+    </section>
+
+    <section id="favorites" class="mdc-layout-grid__inner" style="display:none;">
+      <div id="favorites-container"></div>
+    </section>
+
+    <section id="search" class="mdc-layout-grid__inner" style="display:none;">
+      <input type="text" id="search-query" class="mdc-text-field__input" placeholder="Zoek een comic...">
+      <div id="search-container"></div>
+    </section>
+
+    <section id="about" class="mdc-layout-grid__inner" style="display:none;">
+      <h2>Over deze app</h2>
+      <p>Deze PWA toont Marvel Comics via de Marvel API.</p>
+    </section>
+
+    <section id="details" class="mdc-layout-grid__inner" style="display:none;">
+      <div id="details-container" class="mdc-card"></div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+  <script src="js/main.js" defer></script>
+</body>
+
+</html>

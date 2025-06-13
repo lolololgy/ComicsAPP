@@ -16,24 +16,24 @@ document.addEventListener('DOMContentLoaded', () => {
   document.body.appendChild(overlay);
 
   document.querySelector('header h1').addEventListener('click', () => showPage('comics'));
-
+//menu openen/sluiten
   menuButton.addEventListener('click', () => {
     drawer.classList.toggle('open');
     overlay.style.display = drawer.classList.contains('open') ? 'block' : 'none';
   });
-
+//buiten menu klikken om het menu te sluiten
   document.addEventListener('click', (e) => {
     if (!drawer.contains(e.target) && e.target !== menuButton) {
       drawer.classList.remove('open');
       overlay.style.display = 'none';
     }
   });
-
+//klik op overlay om het menu te sluiten
   overlay.addEventListener('click', () => {
     drawer.classList.remove('open');
     overlay.style.display = 'none';
   });
-
+// Tabs voor navigatie
   tabs.forEach(tab => {
     tab.addEventListener('click', (e) => {
       e.preventDefault();
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
       showPage(tab.dataset.page);
     });
   });
-
+// toon gekozen pagina aka comics of favorieten
   function showPage(page) {
     document.querySelectorAll('main > section').forEach(section => {
       section.style.display = section.id === page ? 'block' : 'none';
@@ -50,16 +50,16 @@ document.addEventListener('DOMContentLoaded', () => {
     page === 'comics' ? loadComics() : loadFavorites?.();
   }
 
-  let page = 0;
-  let loading = false;
-
+  let page = 0; //huidiga pagina voor lazyloading
+  let loading = false; //loading zodat je niet meerdere keren tegelijk laadt
+//lazyloading voor comics
   window.addEventListener('scroll', () => {
     if ((window.innerHeight + window.scrollY) && !loading) {
       loading = true;
       loadComics(searchInput.value, true);
     }
   });
-
+//async zodat de functie wacht tot alles een voor een klaar is
   async function loadComics(query = '', append = false) {
     if (!append) comicsList.innerHTML = '<li>Loading...</li>';
     const offset = page * 20;
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
       comicsList.innerHTML = '<li>Failed to load comics.</li>';
     }
   }
-
+//comics toevoegen aan de lijst
   function showComics(comics, append = false) {
     if (!append) comicsList.innerHTML = '';
     comics.forEach(comic => {

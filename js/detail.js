@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <img src="${comic.thumbnail}" alt="${comic.title}" style="width:100%;">
     <p>${comic.description}</p>
   `;
-
+//update button is toevoegen/verwijderen van favorieten
   function updateButton() {
     const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
     const isFav = favorites.some(f => f.id === comic.id);

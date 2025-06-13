@@ -1,10 +1,7 @@
-// ✅ Geef een duidelijke cache-naam om versies bij te houden
 const CACHE_NAME = 'marvel-pwa-cache-v1';
 
-// ✅ Offline fallback-pagina voor als de gebruiker geen internetverbinding heeft
 const OFFLINE_URL = 'offline.html';
 
-// ✅ Lijst met bestanden die we vooraf willen cachen tijdens installatie
 const ASSETS_TO_CACHE = [
   '/',                        // Hoofdpagina
   '/index.html',              // Startpagina
@@ -20,8 +17,7 @@ const ASSETS_TO_CACHE = [
   '/assets/icons/icon-192.png',  // App-icoon (192px)
   '/assets/icons/icon-512.png'   // App-icoon (512px)
 ];
-
-// ✅ Tijdens de 'install' fase worden alle essentiële bestanden gecachet
+//tijdens installeren worden de assets gecached
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
@@ -30,24 +26,23 @@ self.addEventListener('install', event => {
   );
 });
 
-// ✅ Tijdens de 'activate' fase worden oude caches opgeschoond
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(name => {
-          if (name !== CACHE_NAME) {
-            // Verwijder oude versies van de cache
-            return caches.delete(name);
-          }
-        })
-      );
-    }).catch(err => console.error('Fout bij het activeren van service worker:', err))
-  );
-});
+//tijdens activeren van de service worker, worden oude caches verwijderd
+// self.addEventListener('activate', event => {
+//   event.waitUntil(
+//     caches.keys().then(cacheNames => {
+//       return Promise.all(
+//         cacheNames.map(name => {
+//           if (name !== CACHE_NAME) {
+//             // Verwijder oude versies van de cache
+//             return caches.delete(name);
+//           }
+//         })
+//       );
+//     }).catch(err => console.error('Fout bij het activeren van service worker:', err))
+//   );
+// });
 
-// ✅ Tijdens elke 'fetch' wordt geprobeerd om data van het netwerk te halen,
-//    en als dat faalt, dan gebruiken we de cache of vallen we terug op offline.html
+//tijdens elke fetch wordt geprobeerd om de data van het netwerk te halen als dat niet lukt gaan we naar de offline.html
 self.addEventListener('fetch', event => {
   event.respondWith(
     fetch(event.request)
